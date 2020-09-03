@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::resource('/character', 'CharacterController');
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('character.index');
 });
