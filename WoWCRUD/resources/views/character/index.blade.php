@@ -5,17 +5,32 @@
     <div class="row h-100 align-items-center">
         <div class="card w-100">
             <div class="card-header card-header-primary d-flex justify-content-between">
-                <h4 class="card-title">Tous les joueurs</h4>
+                <h4 class="card-title">Ma guilde</h4>
                 <form action="{{route('character.create')}}" method="get">
                     <button class="btn btn-outline-secondary">Ajouter personnage</button>
                 </form>
             </div>
             <div class="card-body align-items-center " style="background-color:rgb(240,240,240,0.8);">
-                <div class="table-responsive-lg">
+                <div class="row">
+
+                    {{-- Order byClasse --}}
+                    <div class="form-group col-md-4">
+                        <form action="{{route('character.byClasse', 'classe')}}" method="get">
+                            <button class="btn btn-outline-secondary">classer par classe</button>
+                        </form>
+                    </div>
+                    {{-- OrderByRace --}}
+                    <div class="form-group col-md-4">
+                        <form action="{{route('character.byClasse', 'spec')}}" method="get">
+                            <button class="btn btn-outline-secondary">classer par classe</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="table-responsive-md">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-
                                 <th class="text-center text-primary">Pseudo</th>
                                 <th class="text-center text-primary">Race</th>
                                 <th class="text-center text-primary">Points de vie</th>
@@ -27,8 +42,19 @@
                         </thead>
                         <tbody class="action-bar">
                             @foreach ($characters as $character)
-                            <tr>
-                                <td class="text-center">{{ $character->pseudo ?? ''}}</td>
+                            <tr
+                                style="background-color:{{$character->specialization->classe->color}} semi-transparent; ">
+                                <td class="text-center pt-4 pb-4" style="min-width: 15vw">
+                                    @if ($character->owner->name === 'Tom')
+                                    <p style="word-spacing:-3px">
+                                        @foreach ($character->pseudo as $letter)
+                                        <span style="color:{{ $letter[1]}}; font-weight:bolder;">{{ $letter[0] }}</span>
+                                        @endforeach
+                                    </p>
+                                    @else
+                                    {{ $character->pseudo ?? ''}}
+                                    @endif
+                                </td>
                                 <td class="text-center"
                                     style="background-color: {{$character->specialization->classe->color}}">
                                     {{ $character->race->name ?? ''}}</td>
@@ -36,8 +62,7 @@
                                 <td class="text-center">{{ $character->specialization->classe->armor?? ''}}</td>
                                 <td class="text-center"><img src="{{ asset($character->specialization->icon)}}" alt=""
                                         height="20vw">
-                                    {{ 'Je suis un '. $character->specialization->classe->name. ' et mon ' . $character->specialization->property .' est ' .
-                                $character->specialization->methode }}</td>
+                                    {{ $character->detail }}</td>
                                 <td class="text-center"
                                     style="background-color: {{$character->specialization->classe->color}}">
                                     {{ $character->owner->name ?? ''}}</td>

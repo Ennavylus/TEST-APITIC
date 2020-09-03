@@ -29,7 +29,7 @@
         </a>
     </nav>
 
-    <main class='container'>
+    <main class='container-fluide'>
         <div id="app"></div>
         @include('layouts.alerts')
         @yield('content')

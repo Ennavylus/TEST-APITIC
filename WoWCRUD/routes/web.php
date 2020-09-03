@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('/character', 'CharacterController');
+Route::get('/serachcharacter/{classe}', 'CharacterController@index')->name('character.byClasse');
 Route::get('/', function () {
     return redirect()->route('character.index');
 });

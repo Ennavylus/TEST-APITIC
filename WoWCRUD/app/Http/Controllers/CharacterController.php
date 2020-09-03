@@ -16,13 +16,46 @@ class CharacterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($classe = null)
     {
 
-        $characters = Character::all();
+        if ($classe) {
+            $characters = Character::orderBy('classe_id', 'desc')->get();
+        } else {
+            $characters = Character::all();
+        }
+        foreach ($characters as  $character) {
+            if ($character->owner->name == 'Tom') {
+                $character->pseudo = $this->colorName($character->pseudo);
+            }
+            $character->detail = 'Je suis un ' . $character->specialization->classe->name . ' et mon ' . $character->specialization->property . ' est ' .
+                $character->specialization->methode;
+        }
+
         return view('character.index', [
             'characters' => $characters,
         ]);
+    }
+
+    /**
+     * Allows to split string into array whith random color for each letter
+     *
+     * @param [string] $pseudo
+     * @return array letters with random color
+     */
+    public function colorName($pseudo)
+    {
+        $newPseudo = [];
+        foreach (str_split($pseudo) as $value) {
+            $color = "rgb(";
+            for ($i = 0; $i < 3; $i++) {
+                $color .= mt_rand(0, 200);
+                $i < 2 ? $color .= "," : null;
+            }
+            $color .= ')';
+            $newPseudo[] = [$value, $color];
+        }
+        return $newPseudo;
     }
 
     /**
@@ -32,7 +65,6 @@ class CharacterController extends Controller
      */
     public function create()
     {
-        $owner = Owner::all();
         $races = Race::all();
         $classes = Classe::all();
         $specializations = Specialization::all();

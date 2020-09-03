@@ -6,14 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Character extends Model
 {
-    protected $with = ['specialization', 'owner', 'race'];
+    protected $with = ['specialization', 'owner', 'race', 'classe'];
+
     protected $fillable = [
-        'pseudo', 'owner_id', 'specialization_id', 'healthPoints', 'race_id'
+        'pseudo', 'owner_id', 'specialization_id', 'healthPoints', 'race_id', 'classe_id'
     ];
 
     public function specialization()
     {
         return $this->belongsTo('App\Specialization');
+    }
+
+    public function classe(Type $var = null)
+    {
+        return $this->belongsTo('App\Classe');
     }
 
     public function owner()

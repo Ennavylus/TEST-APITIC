@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $character->pseudo = 'Ennavylus';
         $character->healthPoints = 200;
         $character->race_id = 2;
+        $character->classe_id = 6;
         $character->specialization_id = 19;
         $character->owner_id = $owner->id;
         $character->save();

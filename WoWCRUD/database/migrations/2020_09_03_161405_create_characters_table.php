@@ -19,6 +19,7 @@ class CreateCharactersTable extends Migration
             $table->integer('healthPoints');
             $table->foreignId('owner_id')->onDelete('cascade')->constrained();
             $table->foreignId('race_id')->onDelete('cascade')->constrained();
+            $table->foreignId('classe_id')->onDelete('cascade')->constrained();
             $table->foreignId('specialization_id')->onDelete('cascade')->constrained();
             $table->timestamps();
         });

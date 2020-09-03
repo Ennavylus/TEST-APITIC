@@ -58,9 +58,6 @@
                         @endforeach
                     </select>
                 </div>
-
-
-
                 {{-- Classe --}}
                 <div class="form-group col-md-4">
                     <label for="pseudo" class="">Classe</label>
