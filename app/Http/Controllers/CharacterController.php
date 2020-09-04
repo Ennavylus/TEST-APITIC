@@ -23,11 +23,11 @@ class CharacterController extends Controller
     {
         $check = $classe != null ? true : false;
         if ($classe == 'specialization') {
-            $characters = Character::orderBy('specialization_id', 'desc')->get();
+            $characters = Character::orderBy('specialization_id', 'desc')->paginate(10);
         } else if ($classe == 'classe') {
-            $characters = Character::orderBy('classe_id', 'desc')->get();
+            $characters = Character::orderBy('classe_id', 'desc')->paginate(10);
         } else {
-            $characters = Character::all();
+            $characters = Character::paginate(10);
         }
         foreach ($characters as  $character) {
             if ($character->owner->name == 'Tom') {
