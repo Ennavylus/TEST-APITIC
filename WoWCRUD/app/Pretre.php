@@ -10,6 +10,7 @@ class Pretre extends Model
     private $sort_preferere = 'Eruption du Vide';
     private $specialization;
 
+
     public function __construct($specialization)
     {
         $this->specialization = $specialization;

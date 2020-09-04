@@ -9,6 +9,7 @@ class Guerrier extends Model
     private $coup_prefere = 'Cri de guerre';
     private $specialization;
 
+
     public function __construct($specialization)
     {
         $this->specialization = $specialization;

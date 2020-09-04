@@ -9,6 +9,7 @@ class Chasseur extends Model
     private $coup_prefere = 'Hurlement de la bête';
     private $specialization;
 
+
     public function __construct($specialization)
     {
         $this->specialization = $specialization;
