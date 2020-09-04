@@ -9,6 +9,8 @@ use App\Race;
 use App\Specialization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+
 
 class CharacterController extends Controller
 {
@@ -130,7 +132,8 @@ class CharacterController extends Controller
         $classes = Classe::all();
         $specializations = Specialization::all();
         return view('character.edit', [
-            'character' => $character,            'races' => $races,
+            'character' => $character,
+            'races' => $races,
             'classes' => $classes,
             'specializations' => $specializations
         ]);
@@ -145,18 +148,19 @@ class CharacterController extends Controller
      */
     public function update(Request $request, Character $character)
     {
+
         $data = [];
         foreach ($request->all() as $key => $value) {
-            if ($value != null) {
+            if ($value != null || $key == 'specialization_id') {
                 $data[$key] = $value;
             }
         }
 
         $validator = Validator::make($data, [
             "pseudo" => ['sometimes', 'required', 'string', 'min:2', 'max:50'],
-            "race_id" => ['sometimes', 'required', 'numeric'],
-            "classe_id" => ['sometimes', 'required', 'numeric'],
-            "specialization_id" => ['sometimes', 'required', 'numeric'],
+            "race_id" => ['required', 'numeric'],
+            "classe_id" => ['required', 'numeric'],
+            "specialization_id" => ['required', 'numeric'],
             "healthPoints" => ['sometimes', 'required', 'numeric']
         ]);
         if ($validator->fails()) {

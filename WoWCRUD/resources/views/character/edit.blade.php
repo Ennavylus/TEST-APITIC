@@ -61,29 +61,40 @@
                 {{-- Race --}}
                 <div class="form-group col-md-4">
                     <label for="pseudo" class="">Race</label>
-                    <select name="race_id" id="race_id" class="form-control">
+                    <select name="race_id" id="race_id" class="custom-select @error('race_id') is-invalid @enderror">
                         @foreach ($races as $race)
                         <option value="{{ $race->id }}" {{$character->race_id == $race->id?'selected':''}}>
                             {{ $race->name }} </option>
                         @endforeach
                     </select>
+                    @error('race_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
-                {{-- Classe --}}
                 {{-- Classe --}}
                 <div class="form-group col-md-4">
                     <label for="pseudo" class="">Classe</label>
-                    <select name="classe_id" id="classe_id" class="form-control" onchange="onChangeClasse(event)">
+                    <select name="classe_id" id="classe_id"
+                        class="custom-select @error('classe_id') is-invalid @enderror" onchange="onChangeClasse(event)">
                         <option value="">Selectionner une classe</option>
                         @foreach ($classes as $classe)
                         <option value="{{ $classe->id }}" {{$character->classe_id== $classe->id?'selected':''}}>
                             {{ $classe->name }} </option>
                         @endforeach
                     </select>
+                    @error('classe_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
                 {{-- Spécialisation --}}
                 <div class="form-group col-md-4" id="specializationSelector">
                     <label for="pseudo" class="">Spécialisation</label>
-                    <select name="specialization_id" id="specialization_id" class="form-control">
+                    <select name="specialization_id" id="specialization_id"
+                        class="custom-select @error('specialization_id') is-invalid @enderror">
                         <option value="" style="display: none">Selectionner une classe</option>
                         @foreach ($specializations as $specialization)
                         <option data-classe="{{ $specialization->classe_id }}" value="{{ $specialization->id }}"
@@ -92,6 +103,12 @@
                             {{ $specialization->name }}</option>
                         @endforeach
                     </select>
+
+                    @error('specialization_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
             </div>
             <div class="d-flex justify-content-end mt-3">
