@@ -9,7 +9,7 @@ class Character extends Model
     protected $with = ['specialization', 'owner', 'race', 'classe'];
 
     protected $fillable = [
-        'pseudo', 'owner_id', 'specialization_id', 'healthPoints', 'race_id', 'class_id'
+        'pseudo', 'owner_id', 'specialization_id', 'healthPoints', 'race_id', 'classe_id'
     ];
 
     public function specialization()

@@ -19,7 +19,7 @@ class CharacterController extends Controller
     public function index($classe = null)
     {
 
-        if ($classe == 'classe') {
+        if ($classe) {
             $characters = Character::orderBy('classe_id', 'desc')->get();
         } else {
             $characters = Character::all();
@@ -99,7 +99,7 @@ class CharacterController extends Controller
             return redirect()->route('character.index')->with('success', "Le personnage a bien été créer");
         }
 
-        return redirect()->back()->with('error', "Un probleme est survenu lors de la création du personnage");
+        return redirect()->back()->with('error', "Un probleme est survenu, échec de la création du personnage");
     }
 
 
@@ -129,38 +129,22 @@ class CharacterController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  Character $character
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Character $character)
+    public function update(Request $request, $id)
     {
-        $data = $request->validate([
-            "pseudo" => ['required', 'string', 'min:2', 'max:50'],
-            "race_id" => ['required', 'numeric'],
-            "classe_id" => ['required', 'numeric'],
-            "specialization_id" => ['required', 'numeric'],
-            "healthPoints" => ['required', 'numeric']
-        ]);
-
-        if ($character->update($data)) {
-            return redirect()->route('character.index')->with('success', "Le personnage a bien été modifier");
-        }
-
-        return redirect()->back()->with('error', "Un probleme est survenu lors de la modification du personnage");
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param   Character $character
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Character $character)
+    public function destroy($id)
     {
-        if ($character->delete()) {
-            return redirect()->route('character.index')->with('success', "Le personnage a bien été suprrimer");
-        }
-
-        return redirect()->back()->with('error', "Un probleme est survenu lors de la suppression du personnage");
+        //
     }
 }
