@@ -84,11 +84,7 @@
                             @endforeach
                         </tbody>
                     </table>
-<<<<<<< HEAD
-                    {{$characters->links()}}
-=======
                 {{$characters->links()}}
->>>>>>> 2303f90c859766d399a82b03d28c7a2cb730b9e7
                 </div>
             </div>
         </div>
