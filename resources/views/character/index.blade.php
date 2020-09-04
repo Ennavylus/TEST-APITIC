@@ -84,7 +84,7 @@
                             @endforeach
                         </tbody>
                     </table>
-
+                {{$characters->links()}}
                 </div>
             </div>
         </div>
