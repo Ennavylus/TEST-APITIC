@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'WowCRUD') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     @yield('extra-script')
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
