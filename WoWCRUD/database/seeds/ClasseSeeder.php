@@ -55,12 +55,6 @@ class ClasseSeeder extends Seeder
         ];
         foreach ($classes as  $classe) {
             Classe::create($classe);
-            // $newClasse = new Classe();
-            // $newClasse->armor = 'plaque';
-            // $newClasse->name = 'Guerrier';
-            // $newClasse->color = '#C79C6E';
-            // $newClasse->type = 'App\Guerrier';
-            // $newClasse->save();
         }
     }
 }

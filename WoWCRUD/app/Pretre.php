@@ -17,7 +17,7 @@ class Pretre
 
     function detail()
     {
-        if ($this->specialization->name == 'ombre') {
+        if ($this->specialization == 'Ombre') {
             return "Je suis un Prêtre et mon sort preféré est $this->sort_preferere";
         }
         return "Je suis un Prêtre et mon soin preféré est $this->soin_prefere";

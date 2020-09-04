@@ -14,7 +14,6 @@ class Chasseur
         $this->specialization = $specialization;
     }
 
-
     function detail()
     {
         return "Je suis un Chasseur et mon coups preféré est $this->coup_prefere";
