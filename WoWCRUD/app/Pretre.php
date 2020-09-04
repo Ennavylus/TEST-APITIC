@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Pretre extends Model
+class Pretre
 {
     private $soin_prefere = 'Hymne divin';
     private $sort_preferere = 'Eruption du Vide';
@@ -16,9 +14,10 @@ class Pretre extends Model
         $this->specialization = $specialization;
     }
 
+
     function detail()
     {
-        if ($this->specialization->type == 'dps') {
+        if ($this->specialization->name == 'ombre') {
             return "Je suis un Prêtre et mon sort preféré est $this->sort_preferere";
         }
         return "Je suis un Prêtre et mon soin preféré est $this->soin_prefere";

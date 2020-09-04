@@ -22,9 +22,9 @@ class DatabaseSeeder extends Seeder
         $character = new Character();
         $character->pseudo = 'Ennavylus';
         $character->healthPoints = 200;
-        $character->race_id = 2;
-        $character->classe_id = 6;
-        $character->specialization_id = 19;
+        $character->race_id = 1;
+        $character->classe_id = 1;
+        $character->specialization_id = 2;
         $character->owner_id = $owner->id;
         $character->save();
     }

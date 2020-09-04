@@ -8,6 +8,7 @@ use App\Owner;
 use App\Race;
 use App\Specialization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CharacterController extends Controller
 {
@@ -18,8 +19,10 @@ class CharacterController extends Controller
      */
     public function index($classe = null)
     {
-
-        if ($classe == 'classe') {
+        $check = $classe != null ? true : false;
+        if ($classe == 'specialization') {
+            $characters = Character::orderBy('specialization_id', 'desc')->get();
+        } else if ($classe == 'classe') {
             $characters = Character::orderBy('classe_id', 'desc')->get();
         } else {
             $characters = Character::all();
@@ -28,12 +31,11 @@ class CharacterController extends Controller
             if ($character->owner->name == 'Tom') {
                 $character->pseudo = $this->colorName($character->pseudo);
             }
-            $character->detail = 'Je suis un ' . $character->specialization->classe->name . ' et mon ' . $character->specialization->property . ' est ' .
-                $character->specialization->methode;
         }
 
         return view('character.index', [
             'characters' => $characters,
+            'orderByClasse' => $check,
         ]);
     }
 
@@ -111,7 +113,9 @@ class CharacterController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $character = Character::find($id);
+        return response()->json($character);
     }
 
     /**
@@ -120,9 +124,16 @@ class CharacterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Character $character)
     {
-        //
+        $races = Race::all();
+        $classes = Classe::all();
+        $specializations = Specialization::all();
+        return view('character.edit', [
+            'character' => $character,            'races' => $races,
+            'classes' => $classes,
+            'specializations' => $specializations
+        ]);
     }
 
     /**
@@ -134,14 +145,25 @@ class CharacterController extends Controller
      */
     public function update(Request $request, Character $character)
     {
-        $data = $request->validate([
-            "pseudo" => ['required', 'string', 'min:2', 'max:50'],
-            "race_id" => ['required', 'numeric'],
-            "classe_id" => ['required', 'numeric'],
-            "specialization_id" => ['required', 'numeric'],
-            "healthPoints" => ['required', 'numeric']
-        ]);
+        $data = [];
+        foreach ($request->all() as $key => $value) {
+            if ($value != null) {
+                $data[$key] = $value;
+            }
+        }
 
+        $validator = Validator::make($data, [
+            "pseudo" => ['sometimes', 'required', 'string', 'min:2', 'max:50'],
+            "race_id" => ['sometimes', 'required', 'numeric'],
+            "classe_id" => ['sometimes', 'required', 'numeric'],
+            "specialization_id" => ['sometimes', 'required', 'numeric'],
+            "healthPoints" => ['sometimes', 'required', 'numeric']
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
         if ($character->update($data)) {
             return redirect()->route('character.index')->with('success', "Le personnage a bien été modifier");
         }
@@ -157,8 +179,9 @@ class CharacterController extends Controller
      */
     public function destroy(Character $character)
     {
+
         if ($character->delete()) {
-            return redirect()->route('character.index')->with('success', "Le personnage a bien été suprrimer");
+            return redirect()->route('character.index')->with('warning', "Le personnage a bien été suprrimer");
         }
 
         return redirect()->back()->with('error', "Un probleme est survenu lors de la suppression du personnage");

@@ -17,8 +17,6 @@ class CreateSpecializationsTable extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('classe_id')->onDelete('cascade')->constrained();
-            $table->string('property');
-            $table->string('methode');
             $table->string('icon');
             $table->timestamps();
         });

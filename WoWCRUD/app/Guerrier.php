@@ -2,10 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-class Guerrier extends Model
+
+class Guerrier
 {
+
     private $coup_prefere = 'Cri de guerre';
     private $specialization;
 
@@ -14,6 +15,7 @@ class Guerrier extends Model
     {
         $this->specialization = $specialization;
     }
+
 
     function detail()
     {

@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-class Mage extends Model
+class Mage
 {
     private $sort_prefere = 'Murmure de magie';
     private $specialization;
@@ -13,6 +12,7 @@ class Mage extends Model
     {
         $this->specialization = $specialization;
     }
+
 
     function detail()
     {

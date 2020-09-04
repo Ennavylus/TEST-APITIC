@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-class Chasseur extends Model
+class Chasseur
 {
     private $coup_prefere = 'Hurlement de la bête';
     private $specialization;
@@ -14,6 +13,7 @@ class Chasseur extends Model
     {
         $this->specialization = $specialization;
     }
+
 
     function detail()
     {

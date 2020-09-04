@@ -19,6 +19,7 @@ class CreateClassesTable extends Migration
             $table->enum('armor', [
                 'tissu', 'cuir', 'mailles', 'plaque',
             ]);
+            $table->string('type');
             $table->string('color');
             $table->timestamps();
         });

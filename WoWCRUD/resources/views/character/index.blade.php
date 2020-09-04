@@ -19,12 +19,15 @@
                             <button class="btn btn-outline-secondary">classer par classe</button>
                         </form>
                     </div>
-                    {{-- OrderByRace --}}
+                    @if ($orderByClasse)
+                    {{-- OrderBySpecialization --}}
                     <div class="form-group col-md-4">
-                        <form action="{{route('character.byClasse', 'spec')}}" method="get">
-                            <button class="btn btn-outline-secondary">classer par classe</button>
+                        <form action="{{route('character.byClasse', 'specialization')}}" method="get">
+                            <button class="btn btn-outline-secondary">classer par specialisation</button>
                         </form>
                     </div>
+                    @endif
+
                 </div>
 
                 <div class="table-responsive-md">
@@ -57,17 +60,25 @@
                                 </td>
                                 <td class="text-center"
                                     style="background-color: {{$character->specialization->classe->color}}">
-                                    {{ $character->race->name ?? ''}}</td>
+                                    <div class="d-flex flex-column align-items-center">
+                                        {{ $character->race->name ?? ''}} <img
+                                            src="{{ asset("image/".$character->race->faction.'.png')}}" alt=""
+                                            width="30vw">
+                                    </div>
+
+
+
+                                </td>
                                 <td class="text-center">{{ $character->healthPoints?? ''}}</td>
                                 <td class="text-center">{{ $character->specialization->classe->armor?? ''}}</td>
                                 <td class="text-center"><img src="{{ asset($character->specialization->icon)}}" alt=""
                                         height="20vw">
-                                    {{ $character->detail }}</td>
+                                    {{ $character->classeAction()->detail() }}</td>
                                 <td class="text-center"
                                     style="background-color: {{$character->specialization->classe->color}}">
                                     {{ $character->owner->name ?? ''}}</td>
-                                <td class="text-center"><a
-                                        href="{{route('character.edit', $character)}}">Modifier/supprimer</a>
+                                <td class="text-center">
+                                    <a href="{{route('character.edit', $character)}}">Modifier/supprimer</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -79,6 +90,5 @@
         </div>
     </div>
 </div>
-
 
 @endsection
